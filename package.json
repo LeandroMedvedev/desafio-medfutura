@@ -1,0 +1,40 @@
+{
+  "name": "desafio-medfutura",
+  "version": "0.1.0",
+  "description": "Teste técnico https://www.medfutura.com.br/",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeandroMedvedev/desafio-medfutura.git"
+  },
+  "keywords": [
+    "teste",
+    "técnico",
+    "Medfutura"
+  ],
+  "author": "Leandro Medvedev <medvedevleandro@outlook.com>",
+  "licenses": [
+    {
+      "type": "MPL-2.0",
+      "url": "https://www.mozilla.org/en-US/MPL/2.0/"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/LeandroMedvedev/desafio-medfutura/issues"
+  },
+  "homepage": "https://github.com/LeandroMedvedev/desafio-medfutura#readme",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.4",
+    "supertest": "^7.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "sqlite3": "^5.1.7"
+  }
+}

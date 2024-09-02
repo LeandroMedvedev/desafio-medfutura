@@ -13,6 +13,10 @@ app.use(tratamentoErros); // Middleware para tratamento de erros
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, () => {
-  console.log(`Aplicação rodando em http://localhost:${port}.`);
-});
+module.exports = app;
+
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`Aplicação rodando em http://localhost:${port}.`);
+  });
+}

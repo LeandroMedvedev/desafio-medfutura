@@ -11,7 +11,18 @@ class DBService {
           if (error) {
             reject(error.message);
           } else {
-            resolve({ id: this.lastID });
+            // Consultar a nova pessoa criada para retornar todos os detalhes
+            db.get(
+              `SELECT * FROM pessoas WHERE id = ?`,
+              [this.lastID],
+              (error, row) => {
+                if (error) {
+                  reject(error.message);
+                } else {
+                  resolve(row); // Retorna todos os detalhes da pessoa criada
+                }
+              }
+            );
           }
         }
       );
@@ -46,20 +57,58 @@ class DBService {
     });
   }
 
+  // atualizarPessoa(id, dados) {
+  //   const { apelido, nome, nascimento, stack } = dados;
+  //   return new Promise((resolve, reject) => {
+  //     db.run(
+  //       `UPDATE pessoas SET apelido = ?, nome = ?, nascimento = ?, stack = ? WHERE id = ?`,
+  //       [apelido, nome, nascimento, JSON.stringify(stack), id],
+  //       function (error) {
+  //         if (error) {
+  //           reject(error.message);
+  //         } else {
+  //           resolve({ changes: this.changes });
+  //         }
+  //       }
+  //     );
+  //   });
+  // }
   atualizarPessoa(id, dados) {
     const { apelido, nome, nascimento, stack } = dados;
     return new Promise((resolve, reject) => {
-      db.run(
-        `UPDATE pessoas SET apelido = ?, nome = ?, nascimento = ?, stack = ? WHERE id = ?`,
-        [apelido, nome, nascimento, JSON.stringify(stack), id],
-        function (error) {
-          if (error) {
-            reject(error.message);
-          } else {
-            resolve({ changes: this.changes });
-          }
+      // Verifica se a pessoa existe antes de atualizar
+      db.get(`SELECT * FROM pessoas WHERE id = ?`, [id], (error, row) => {
+        if (error) {
+          return reject(error.message);
         }
-      );
+        if (!row) {
+          return reject('Pessoa não encontrada.');
+        }
+
+        // Atualiza a pessoa
+        db.run(
+          `UPDATE pessoas SET apelido = ?, nome = ?, nascimento = ?, stack = ? WHERE id = ?`,
+          [apelido, nome, nascimento, JSON.stringify(stack), id],
+          function (error) {
+            if (error) {
+              reject(error.message);
+            } else {
+              // Retorna a pessoa atualizada
+              db.get(
+                `SELECT * FROM pessoas WHERE id = ?`,
+                [id],
+                (error, updatedRow) => {
+                  if (error) {
+                    reject(error.message);
+                  } else {
+                    resolve(updatedRow);
+                  }
+                }
+              );
+            }
+          }
+        );
+      });
     });
   }
 

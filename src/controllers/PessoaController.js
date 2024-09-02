@@ -13,9 +13,6 @@ class PessoaController {
   static async obterPessoaPorId(request, response) {
     try {
       const pessoa = await PessoaService.obterPessoaPorId(request.params.id);
-      if (!pessoa) {
-        return response.status(404).json({ mensagem: 'Pessoa não encontrada' });
-      }
       return response.status(200).json(pessoa);
     } catch (error) {
       return response.status(400).json({ mensagem: error.message });

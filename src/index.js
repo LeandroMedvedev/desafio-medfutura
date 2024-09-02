@@ -7,9 +7,9 @@ const pessoaRoutes = require('./routes/pessoaRoutes');
 const app = express();
 
 app.use(express.json());
-app.use(registrador); // Middleware para registrar as requisições
+app.use(registrador);
 app.use('/api', pessoaRoutes);
-app.use(tratamentoErros); // Middleware para tratamento de erros
+app.use(tratamentoErros);
 
 const port = process.env.PORT || 3000;
 

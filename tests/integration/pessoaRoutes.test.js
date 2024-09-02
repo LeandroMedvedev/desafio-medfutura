@@ -106,7 +106,7 @@ describe('Testes de Integração para a API de Pessoas', () => {
     await request(app).post('/api/pessoas').send(novaPessoa2).expect(201);
 
     const resposta = await request(app)
-      .get('/api/pessoas?termo=Developer')
+      .get('/api/pessoas?t=Developer')
       .expect(200);
 
     // Verifica se a resposta contém a pessoa filtrada

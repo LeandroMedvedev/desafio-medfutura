@@ -12,7 +12,6 @@ class PessoaService {
   async obterPessoaPorId(id) {
     try {
       const pessoa = await DBService.obterPessoaPorId(id);
-      // if (!pessoa) throw new Error('Pessoa não encontrada.');
       return pessoa;
     } catch (error) {
       throw new Error('Erro ao buscar pessoa: ' + error);

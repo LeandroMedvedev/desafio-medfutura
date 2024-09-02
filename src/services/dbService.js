@@ -57,22 +57,6 @@ class DBService {
     });
   }
 
-  // atualizarPessoa(id, dados) {
-  //   const { apelido, nome, nascimento, stack } = dados;
-  //   return new Promise((resolve, reject) => {
-  //     db.run(
-  //       `UPDATE pessoas SET apelido = ?, nome = ?, nascimento = ?, stack = ? WHERE id = ?`,
-  //       [apelido, nome, nascimento, JSON.stringify(stack), id],
-  //       function (error) {
-  //         if (error) {
-  //           reject(error.message);
-  //         } else {
-  //           resolve({ changes: this.changes });
-  //         }
-  //       }
-  //     );
-  //   });
-  // }
   atualizarPessoa(id, dados) {
     const { apelido, nome, nascimento, stack } = dados;
     return new Promise((resolve, reject) => {

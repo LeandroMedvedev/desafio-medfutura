@@ -21,7 +21,7 @@ class PessoaController {
 
   static async obterPessoasPorTermo(request, response) {
     try {
-      const termo = request.query.termo;
+      const termo = request.query.t;
       if (!termo) {
         return response
           .status(400)

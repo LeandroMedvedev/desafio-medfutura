@@ -5,8 +5,8 @@ const verificarId = require('../middlewares/verificarId');
 const router = express.Router();
 
 router.post('/pessoas', validarPessoa, PessoaController.criarPessoa);
-router.get('/pessoas/:id', verificarId, PessoaController.buscarPessoa);
-router.get('/pessoas', PessoaController.buscarPessoas);
+router.get('/pessoas/:id', verificarId, PessoaController.obterPessoaPorId);
+router.get('/pessoas', PessoaController.obterPessoasPorTermo);
 router.put(
   '/pessoas/:id',
   verificarId,

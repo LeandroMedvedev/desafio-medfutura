@@ -1,15 +1,19 @@
-const Pessoa = require('../models/Pessoa');
+const PessoaService = require('../services/pessoaService');
 
 const verificarId = async (request, response, next) => {
   const { id } = request.params;
-  const pessoa = await Pessoa.buscarPorId(id);
 
-  if (!pessoa) {
-    return response.status(404).json({ message: 'Pessoa não encontrada.' });
+  try {
+    const pessoa = await PessoaService.obterPessoaPorId(id);
+
+    if (!pessoa) {
+      return response.status(404).json({ message: 'Pessoa não encontrada.' });
+    }
+
+    next();
+  } catch (error) {
+    return response.status(400).json({ error: error.message });
   }
-
-  request.pessoa = pessoa; // Passando o objeto pessoa para o próximo middleware
-  next();
 };
 
 module.exports = verificarId;

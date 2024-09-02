@@ -1,66 +1,47 @@
-const Pessoa = require('../models/Pessoa');
+const DBService = require('./dbService');
 
 class PessoaService {
   async criarPessoa(dadosPessoa) {
     try {
-      const novaPessoa = await Pessoa.criar(dadosPessoa);
-      return novaPessoa;
+      return await DBService.criarPessoa(dadosPessoa);
     } catch (error) {
-      throw new Error('Erro ao criar pessoa: ' + error.message);
+      throw new Error('Erro ao criar pessoa: ' + error);
     }
   }
 
   async obterPessoaPorId(id) {
     try {
-      const pessoa = await Pessoa.buscarPorId(id);
-      if (!pessoa) {
-        throw new Error('Pessoa não encontrada.');
-      }
+      const pessoa = await DBService.obterPessoaPorId(id);
+      // if (!pessoa) throw new Error('Pessoa não encontrada.');
       return pessoa;
     } catch (error) {
-      throw new Error('Erro ao buscar pessoa: ' + error.message);
+      throw new Error('Erro ao buscar pessoa: ' + error);
     }
   }
 
-  async buscarPessoasPorTermo(termo) {
+  async obterPessoasPorTermo(termo) {
     try {
-      const pessoas = await Pessoa.buscarPorTermo({
-        where: {
-          [Op.or]: [
-            { apelido: { [Op.like]: `%${termo}%` } },
-            { nome: { [Op.like]: `%${termo}%` } },
-            { stack: { [Op.contains]: [termo] } },
-          ],
-        },
-      });
-      return pessoas;
+      return await DBService.obterPessoasPorTermo(termo);
     } catch (error) {
-      throw new Error('Erro ao buscar pessoas: ' + error.message);
+      throw new Error('Erro ao buscar pessoas: ' + error);
     }
   }
 
   async atualizarPessoa(id, dadosAtualizados) {
     try {
-      const pessoa = await this.obterPessoaPorId(id);
-      if (!pessoa) {
-        throw new Error('Pessoa não encontrada.');
-      }
-      await pessoa.update(dadosAtualizados);
-      return pessoa;
+      await this.obterPessoaPorId(id);
+      await DBService.atualizarPessoa(id, dadosAtualizados);
     } catch (error) {
-      throw new Error('Erro ao atualizar pessoa: ' + error.message);
+      throw new Error('Erro ao atualizar pessoa: ' + error);
     }
   }
 
   async excluirPessoa(id) {
     try {
-      const pessoa = await this.obterPessoaPorId(id);
-      if (!pessoa) {
-        throw new Error('Pessoa não encontrada.');
-      }
-      await pessoa.destroy();
+      await this.obterPessoaPorId(id);
+      await DBService.excluirPessoa(id);
     } catch (error) {
-      throw new Error('Erro ao excluir pessoa: ' + error.message);
+      throw new Error('Erro ao excluir pessoa: ' + error);
     }
   }
 }

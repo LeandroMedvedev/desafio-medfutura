@@ -1,60 +1,60 @@
 const PessoaService = require('../services/pessoaService');
 
 class PessoaController {
-  static async criarPessoa(req, res) {
+  static async criarPessoa(request, response) {
     try {
-      const novaPessoa = await PessoaService.criarPessoa(req.body);
-      return res.status(201).json(novaPessoa);
-    } catch (erro) {
-      return res.status(422).json({ mensagem: erro.message });
+      const novaPessoa = await PessoaService.criarPessoa(request.body);
+      return response.status(201).json(novaPessoa);
+    } catch (error) {
+      return response.status(422).json({ mensagem: error.message });
     }
   }
 
-  static async obterPessoaPorId(req, res) {
+  static async obterPessoaPorId(request, response) {
     try {
-      const pessoa = await PessoaService.obterPessoaPorId(req.params.id);
+      const pessoa = await PessoaService.obterPessoaPorId(request.params.id);
       if (!pessoa) {
-        return res.status(404).json({ mensagem: 'Pessoa não encontrada' });
+        return response.status(404).json({ mensagem: 'Pessoa não encontrada' });
       }
-      return res.status(200).json(pessoa);
-    } catch (erro) {
-      return res.status(400).json({ mensagem: erro.message });
+      return response.status(200).json(pessoa);
+    } catch (error) {
+      return response.status(400).json({ mensagem: error.message });
     }
   }
 
-  static async buscarPessoasPorTermo(req, res) {
+  static async obterPessoasPorTermo(request, response) {
     try {
-      const termo = req.query.t;
+      const termo = request.query.t;
       if (!termo) {
-        return res
+        return response
           .status(400)
           .json({ mensagem: 'Termo de busca não informado' });
       }
-      const pessoas = await PessoaService.buscarPessoasPorTermo(termo);
-      return res.status(200).json(pessoas);
-    } catch (erro) {
-      return res.status(400).json({ mensagem: erro.message });
+      const pessoas = await PessoaService.obterPessoasPorTermo(termo);
+      return response.status(200).json(pessoas);
+    } catch (error) {
+      return response.status(400).json({ mensagem: error.message });
     }
   }
 
-  static async atualizarPessoa(req, res) {
+  static async atualizarPessoa(request, response) {
     try {
       const pessoaAtualizada = await PessoaService.atualizarPessoa(
-        req.params.id,
-        req.body
+        request.params.id,
+        request.body
       );
-      return res.status(200).json(pessoaAtualizada);
-    } catch (erro) {
-      return res.status(422).json({ mensagem: erro.message });
+      return response.status(200).json(pessoaAtualizada);
+    } catch (error) {
+      return response.status(422).json({ mensagem: error.message });
     }
   }
 
-  static async excluirPessoa(req, res) {
+  static async excluirPessoa(request, response) {
     try {
-      await PessoaService.excluirPessoa(req.params.id);
-      return res.status(204).end();
-    } catch (erro) {
-      return res.status(400).json({ mensagem: erro.message });
+      await PessoaService.excluirPessoa(request.params.id);
+      return response.status(204).end();
+    } catch (error) {
+      return response.status(400).json({ mensagem: error.message });
     }
   }
 }

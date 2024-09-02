@@ -1,3 +1,4 @@
+require('dotenv').config(); // Carregar variáveis de ambiente do .env
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 const dbPath = path.resolve(__dirname, '../', process.env.DB_PATH);

@@ -4,7 +4,7 @@
   "description": "Teste técnico https://www.medfutura.com.br/",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js",
+    "start": "nodemon",
     "test": "jest"
   },
   "repository": {

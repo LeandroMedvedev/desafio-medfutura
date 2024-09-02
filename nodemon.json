@@ -1,0 +1,8 @@
+{
+  "watch": ["src"],
+  "ext": "js,json",
+  "exec": "node src/index.js",
+  "events": {
+    "start": "node initDb.js"
+  }
+}

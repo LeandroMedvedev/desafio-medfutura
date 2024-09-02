@@ -8,7 +8,7 @@ function criarBancoDeDadosSeNaoExistir() {
   return new Promise((resolve, reject) => {
     fs.access(dbPath, fs.constants.F_OK, (error) => {
       if (error) {
-        // O arquivo não existe, vamos criar o banco de dados
+        // O arquivo não existe, criar base de dados
         const db = new sqlite3.Database(dbPath, (err) => {
           if (err) {
             reject(`Erro ao criar o banco de dados: ${err.message}`);

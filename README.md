@@ -1,7 +1,3 @@
-Aqui está um modelo detalhado para o seu `README.md`:
-
----
-
 # API de Pessoas
 
 Esta é uma API para gerenciamento de informações de pessoas. Ela permite a criação, leitura, atualização e exclusão de registros, bem como a busca por termos específicos. A API foi desenvolvida utilizando Node.js com SQLite.
